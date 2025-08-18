@@ -20,15 +20,17 @@ class Comment extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function parent()
-    {
-        return $this->belongsTo($this, 'parent_id');
-    }
-
     public function replyes()
     {
+        // He Expected Forgin Id For comments_id
+
         return $this->hasMany($this, 'parent_id');
     }
+    public function parent()
+    {
+        return $this->belongsTo($this);
+    }
+
 
     public function likes()
     {

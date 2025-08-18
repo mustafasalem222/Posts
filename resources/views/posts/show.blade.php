@@ -24,11 +24,11 @@
       <h3 class="text-center my-5 text-3xl font-bold">Comments</h3>
 
       <div class="flex flex-col justify-center gap-5">
-      @foreach ($post->comments()->with('user')->get() as $comment)
+      @foreach ($post->comments()->whereNull('parent_id')->with('user')->get() as $comment)
       <div class="comment mb-4 p-3 bg-white rounded shadow-sm">
         <div class="flex items-center mb-2 justify-between">
         <div class="flex items-center">
-        <span class="font-medium">{{ $comment->user->first_name . ' ' . $comment->user->last_name }}</span>
+        <span class="font-medium">{{ $comment->user->full_name}}</span>
         <span class="ml-2 text-gray-500 text-sm">{{ $comment->created_at->format('g:i A') }}</span>
 
         </div>
@@ -44,9 +44,9 @@
         </div>
         @auth
 
-      <!-- Reply form (hidden by default) -->
-      <div class="reply-form mt-3 hidden">
-      <form method="POST" action="/posts/{{ $post->id }}/comment/{{ $comment->id }}/reply">
+        <!-- Reply form (hidden by default) -->
+        <div class="reply-form mt-3 hidden">
+        <form method="POST" action="/posts/{{ $post->id }}/comment/{{ $comment->id }}/reply">
 
         @csrf
         <textarea name="reply" class="w-full p-2 resize-none border rounded"
@@ -54,17 +54,19 @@
         <button type="submit" class="mt-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
         Post Reply
         </button>
-      </form>
-      </div>
-      <!-- Nested Replies (example shape only) -->
+        </form>
+        </div>
+        <!-- Nested Replies (example shape only) -->
+        @foreach ($comment->replyes()->with('user')->get() as $replay)
+
 
       <div class="ml-6 mt-4 space-y-4">
       <div class="reply p-3 bg-gray-50 rounded shadow-sm">
         <div class="flex items-center gap-2 mb-1">
-        <span class="font-medium">Nested User</span>
-        <span class="text-gray-500 text-xs">4:05 PM</span>
+        <span class="font-medium">{{ $replay->user->full_name}}</span>
+        <span class="text-gray-500 text-xs">{{ $replay->created_at->format('g:i A')  }}</span>
         </div>
-        <p class="text-gray-700 text-sm">This is a reply to the comment.</p>
+        <p class="text-gray-700 text-sm">{{ $replay->body }}</p>
 
         <div class="mt-1 flex gap-3 text-xs text-gray-500">
         <button type="button" class="reply-btn hover:text-blue-500">Reply</button>
@@ -76,7 +78,8 @@
         <button class="mt-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">Post Reply</button>
         </div>
       </div>
-      </div>
+      @endforeach
+        </div>
       @endauth
       </div>
     @endforeach
