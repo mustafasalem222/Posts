@@ -15,8 +15,7 @@
         <div class="flex h-16 items-center justify-between">
           <div class="flex items-center">
             <div class="shrink-0">
-              <img class="size-8" src="{{ Vite::asset("resources/images/how-to-read-code-season-2.webp") }}"
-                alt="Your Company" />
+              <img class="size-8" src="{{ asset('images/how-to-read-code-season-2.webp') }}" alt="Your Company" />
             </div>
             <div class="hidden md:block">
               <div class="ml-10 flex items-baseline space-x-4">

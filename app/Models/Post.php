@@ -19,6 +19,10 @@ class Post extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+    public function tag()
+    {
+        return $this->morphTo(Tag::class);
+    }
 
     public function comments()
     {

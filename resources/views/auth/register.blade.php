@@ -14,14 +14,16 @@
 
       <div>
         <x-form-label for="first_name">First Name</x-form-label>
-        <x-form-input type="text" id="first_name" name="first_name" placeholder="Jhon" reqiured />
+        <x-form-input value="{{ old('first_name') }}" type="text" id="first_name" name="first_name" placeholder="Jhon"
+          reqiured />
 
       </div>
       <x-form-error name="first_name" />
 
       <div>
         <x-form-label for="last_name">Last Name</x-form-label>
-        <x-form-input type="text" id="last_name" name="last_name" placeholder="Doe" reqiured />
+        <x-form-input type="text" value="{{ old('last_name') }}" id="last_name" name="last_name" placeholder="Doe"
+          reqiured />
 
       </div>
       <x-form-error name="last_name" />
@@ -30,22 +32,23 @@
 
       <div>
         <x-form-label for="email">Email Address</x-form-label>
-        <x-form-input type="email" id="email" name="email" placeholder="jhondoe@example.com" reqiured />
+        <x-form-input type="email" value="{{ old('email') }}" id="email" name="email" placeholder="jhondoe@example.com"
+          reqiured />
 
       </div>
       <x-form-error name="email" />
 
       <div>
         <x-form-label for="password">Password</x-form-label>
-        <x-form-input type="password" id="password" name="password" placeholder="Please Enter A Storng Password"
-          reqiured />
+        <x-form-input type="password" id="password" value="{{ old('password') }}" name="password"
+          placeholder="Please Enter A Storng Password" reqiured />
 
       </div>
       <x-form-error name="password" />
       <div>
         <x-form-label for="password_confirmation">Confirm Password</x-form-label>
-        <x-form-input type="password" id="password_confirmation" name="password_confirmation"
-          placeholder="Confirm Your Passwod" reqiured />
+        <x-form-input type="password" id="password_confirmation" value="{{ old('password_confirmation') }}"
+          name="password_confirmation" placeholder="Confirm Your Passwod" reqiured />
 
       </div>
       <x-form-error name="password_confirmation" />
