@@ -43,10 +43,12 @@ Route::controller(JobController::class)->group(function () {
 Route::controller(PostController::class)->group(function () {
   Route::get('/posts', 'index');
   Route::get('/posts/{post}', 'show');
+
+  Route::post('/posts/{post}/like', 'like');
+  Route::post('/posts/{post}/un-like', 'unLike');
 });
 
 Route::controller(LikeController::class)->group(function () {
-
   Route::post('/posts/{post}/like', 'store');
   Route::delete('/posts/{post}/like', 'destroy');
   Route::post('/posts/{post}/comment/{comment}/like', 'store');
@@ -56,6 +58,9 @@ Route::controller(LikeController::class)->group(function () {
 Route::controller(CommentController::class)->group(function () {
   Route::post('/posts/{post}/comment', 'store');
   Route::post('/posts/{post}/comment/{comment}/reply', 'store');
+
+  Route::post('/comments/{comment}/like', 'like');
+  Route::post('/comments/{comment}/un-like', 'unLike');
 });
 
 

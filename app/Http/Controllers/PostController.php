@@ -18,4 +18,18 @@ class PostController extends Controller
     {
         return view('posts.show', compact('post'));
     }
+
+    public function like(Post $post)
+    {
+        $post->like();
+
+        return back();
+    }
+
+    public function unLike(Post $post)
+    {
+        $post->unLike();
+
+        return back();
+    }
 }

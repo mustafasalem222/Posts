@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Likeable;
 
 class Comment extends Model
 {
     /** @use HasFactory<\Database\Factories\CommentFactory> */
-    use HasFactory;
-
+    use HasFactory, Likeable;
 
     public function post()
     {
@@ -30,11 +30,5 @@ class Comment extends Model
     public function parent()
     {
         return $this->belongsTo($this);
-    }
-
-
-    public function likes()
-    {
-        return $this->morphMany(Like::class, 'likeable');
     }
 }

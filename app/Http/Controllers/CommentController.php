@@ -75,4 +75,18 @@ class CommentController extends Controller
     {
         //
     }
+
+    public function like(Comment $comment)
+    {
+        $comment->like();
+
+        return back();
+    }
+
+    public function unLike(Comment $comment)
+    {
+        $comment->unLike();
+
+        return back();
+    }
 }
