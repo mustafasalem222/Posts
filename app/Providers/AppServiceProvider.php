@@ -23,9 +23,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Model::preventLazyLoading();
-        // Gate::define('edit-job', function (User $user, Job $job) {
-
+        Model::preventLazyLoading();
+        // Gate::define('like', function (User $user, Job $like) {
+        //     return !$user->hasAttribute($like) ? true : false;
         // });
         Model::unguard();
     }

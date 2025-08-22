@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Jobs\TranslateJob;
 use App\Models\Job;
@@ -42,6 +43,14 @@ Route::controller(JobController::class)->group(function () {
 Route::controller(PostController::class)->group(function () {
   Route::get('/posts', 'index');
   Route::get('/posts/{post}', 'show');
+});
+
+Route::controller(LikeController::class)->group(function () {
+
+  Route::post('/posts/{post}/like', 'store');
+  Route::delete('/posts/{post}/like', 'destroy');
+  Route::post('/posts/{post}/comment/{comment}/like', 'store');
+  Route::delete('/posts/{post}/comment/{comment}/like', 'destroy');
 });
 
 Route::controller(CommentController::class)->group(function () {

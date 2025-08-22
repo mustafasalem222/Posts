@@ -10,16 +10,14 @@ class Like extends Model
     /** @use HasFactory<\Database\Factories\LikeFactory> */
     use HasFactory;
 
-    public function post()
+    public function likeable()
     {
-        return $this->belongsTo(Post::class);
+        return $this->morphTo();
     }
-    public function comment()
-    {
-        return $this->belongsTo(Comment::class);
-    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+
 }

@@ -17,11 +17,19 @@ class DatabaseSeeder extends Seeder
     {
 
 
-        User::factory()->create([
-            'first_name' => 'Mostafa',
-            'last_name' => 'Salem',
-            'email' => 'mostafasalem25682@gmail.com',
-            'password' => 'salem123'
+        User::factory()->createMany([
+            [
+                'first_name' => 'Mostafa',
+                'last_name' => 'Salem',
+                'email' => 'mostafasalem25682@gmail.com',
+                'password' => bcrypt('salem123')
+            ],
+            [
+                'first_name' => 'Fake',
+                'last_name' => 'Salem',
+                'email' => 'mostafasalem2568@gmail.com',
+                'password' => bcrypt('salem123')
+            ]
         ]);
 
         Job::factory(10)->create();

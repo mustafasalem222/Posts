@@ -15,6 +15,7 @@
 
   <div class="mt-2 flex gap-4 text-sm text-gray-500">
     <button class="hover:text-blue-500 cursor-pointer reply-btn">Reply</button>
+    <x-like-comment :post="$post" :comment="$comment" />
   </div>
 
   <!-- Reply form -->
