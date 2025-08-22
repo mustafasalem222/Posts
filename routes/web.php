@@ -11,9 +11,6 @@ use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\JobController;
 
-
-
-
 Route::view('/', 'home');
 
 Route::get(
@@ -45,7 +42,7 @@ Route::controller(PostController::class)->group(function () {
   Route::get('/posts/{post}', 'show');
 
   Route::post('/posts/{post}/like', 'like');
-  Route::post('/posts/{post}/un-like', 'unLike');
+  Route::delete('/posts/{post}/un-like', 'unLike');
 });
 
 Route::controller(LikeController::class)->group(function () {
@@ -60,7 +57,7 @@ Route::controller(CommentController::class)->group(function () {
   Route::post('/posts/{post}/comment/{comment}/reply', 'store');
 
   Route::post('/comments/{comment}/like', 'like');
-  Route::post('/comments/{comment}/un-like', 'unLike');
+  Route::delete('/comments/{comment}/un-like', 'unLike');
 });
 
 
