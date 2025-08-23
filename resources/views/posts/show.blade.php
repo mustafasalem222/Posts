@@ -5,15 +5,34 @@
 
 
   <!-- Post -->
-  <div class="bg-white py-6 px-4 flex-col rounded flex">
-    <div class="flex-1 basis-[5rem] ">
-      <a href="/{{ $post->user->first_name }}"
-        class="font-medium text-xl">{{ $post->user->first_name . ' ' . $post->user->last_name }}</a>
-      <p>{{ $post->created_at->format('g:i A') }}</p>
+  <div class="bg-white py-6 px-4 flex-col rounded flex border-b-2 border-b-blue-800">
+    <!-- User Info -->
+    <div class="flex items-center justify-between">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="font-medium text-xl">
+            {{ $post->user->full_name }}
+          </p>
+          <p class="text-sm text-gray-500">{{ $post->created_at->format('g:i A') }}</p>
+        </div>
+      </div>
+      @can('edit', $post)
+      <span class="text-blue-900 font-black  ">You</span>
+    @endcan
     </div>
+
+    <!-- Post Content -->
     <div>
-      <h3 class="text-2xl font-bold ">{{ $post->title }}</h3>
-      <p class="text-xl font-medium text-wrap my-8">{{ $post->body }}</p>
+      <p class="text-2xl font-bold">{{ $post->title }}</p>
+      <p class="text-xl font-medium text-wrap my-4">{{ $post->body }}</p>
+    </div>
+    <div class="flex justify-between items-center">
+      <div class="mt-2 flex gap-4 text-sm text-gray-500">
+        <x-like-post :post="$post" />
+      </div>
+      @can('edit', $post)
+      <x-link-click href="/posts/{{ $post->id }}/edit">Edit</x-link-click>
+    @endcan
     </div>
   </div>
 

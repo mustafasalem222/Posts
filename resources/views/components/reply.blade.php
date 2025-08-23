@@ -6,9 +6,14 @@
         <span class="font-medium">{{ $comment->user->full_name }}</span>
         <span class="text-gray-500 text-sm">{{ $comment->created_at->format('g:i A') }}</span>
       </div>
-      @if ($post->user->is($comment->user))
-      <span class="text-gray-600 text-sm">Author</span>
+      <div class="flex items-center gap-x-1.5">
+        @if ($post->user->is($comment->user))
+      <span class="text-gray-600  text-sm">Author</span>
     @endif
+        @can('view', $comment)
+      <span class="text-blue-900 font-black ">You</span>
+    @endcan
+      </div>
     </div>
 
     <p class="text-gray-700">{{ $comment->body }}</p>

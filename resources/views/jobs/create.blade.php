@@ -14,14 +14,15 @@
       <!-- Job Title -->
       <div>
         <x-form-label for="title">Title</x-form-label>
-        <x-form-input type="text" id="title" name="title" placeholder="e.g. Frontend Developer" reqiured />
+        <x-form-input type="text" id="title" name="title" vlaue="{{ old('title') }}"
+          placeholder="e.g. Frontend Developer" reqiured />
 
       </div>
       <x-form-error name="title" />
       <!-- Salary -->
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">Salary</label>
-        <input type="text" name="salary" placeholder="u.s. $15,000 USD/Year"
+        <input type="text" name="salary" vlaue="{{ old('salary') }}" placeholder="u.s. $15,000 USD/Year"
           class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
       </div>
 

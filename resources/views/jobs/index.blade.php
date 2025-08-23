@@ -5,14 +5,13 @@
   <x-slot:title>
     Job Listings
   </x-slot:title>
-  @auth
 
-    <x-slot:linkName>Create</x-slot:linkName>
-  @endauth
+  <x-slot:linkhref>/jobs/create</x-slot:linkhref>
+
 
   <div class="space-y-4">
     @foreach ($jobs as $job)
-    <a href="/jobs/{{ $job['id'] }}" class="block px-4 py-6 border border-gray-200 rounded-lg">
+    <a href="/jobs/{{ $job->id }}" class="block px-4 py-6 border border-gray-200 rounded-lg">
       <div class="font-bold group flex items-center justify-between text-blue-500">
       {{ $job->employer->name }}
       @can ('edit', $job)
@@ -20,7 +19,7 @@
     @endcan
       </div>
       <div>
-      <strong>{{ $job['title'] }}:</strong> Pays {{ $job['salary'] }} per year.
+      <strong>{{ $job->title }}:</strong> Pays {{ $job->salary }} per year.
       </div>
     </a>
   @endforeach

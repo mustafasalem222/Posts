@@ -42,25 +42,30 @@ Route::controller(JobController::class)->group(function () {
 
 Route::controller(PostController::class)->group(function () {
   Route::get('/posts', 'index');
+
+  Route::middleware('auth')->group(function () {
+    Route::get('/posts/create', 'create');
+    Route::get('/posts/{post}/edit', 'edit');
+    Route::patch('/posts/{post}', 'update');
+    Route::delete('/posts/{post}', 'destroy');
+    Route::post('/posts', 'store');
+    Route::post('/posts/{post}/like', 'like');
+    Route::delete('/posts/{post}/un-like', 'unLike');
+  });
+
   Route::get('/posts/{post}', 'show');
-
-  Route::post('/posts/{post}/like', 'like');
-  Route::post('/posts/{post}/un-like', 'unLike');
 });
 
-Route::controller(LikeController::class)->group(function () {
-  Route::post('/posts/{post}/like', 'store');
-  Route::delete('/posts/{post}/like', 'destroy');
-  Route::post('/posts/{post}/comment/{comment}/like', 'store');
-  Route::delete('/posts/{post}/comment/{comment}/like', 'destroy');
-});
+
 
 Route::controller(CommentController::class)->group(function () {
   Route::post('/posts/{post}/comment', 'store');
   Route::post('/posts/{post}/comment/{comment}/reply', 'store');
 
-  Route::post('/comments/{comment}/like', 'like');
-  Route::post('/comments/{comment}/un-like', 'unLike');
+  Route::middleware('auth')->group(function () {
+    Route::post('/comments/{comment}/like', 'like');
+    Route::delete('/comments/{comment}/un-like', 'unLike');
+  });
 });
 
 

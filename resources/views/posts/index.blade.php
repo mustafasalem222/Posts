@@ -4,6 +4,8 @@
     Posts
   </x-slot:heading>
 
+  <x-slot:linkhref>/posts/create</x-slot:linkhref>
+
   <div class="space-y-10 divide-y-4 divide-blue-900 px-5 my-10">
     @foreach ($posts as $post)
 
@@ -11,28 +13,33 @@
 
       <!-- User Info -->
       <div class="flex items-center justify-between">
-      <div>
-        <a href="/{{ $post->user->first_name }}" class="font-medium text-xl">
-        {{ $post->user->first_name . ' ' . $post->user->last_name }}
+      <div class="flex items-center justify-between">
+        <div>
+        <a href="/{{ $post->user->full_name }}" class="font-medium text-xl">
+          {{ $post->user->full_name }}
         </a>
         <p class="text-sm text-gray-500">{{ $post->created_at->format('g:i A') }}</p>
+        </div>
       </div>
+      @can('edit', $post)
+      <span class="text-blue-900 font-black  ">You</span>
+    @endcan
       </div>
 
       <!-- Post Content -->
       <div>
-      <h3 class="text-2xl font-bold">{{ $post->title }}</h3>
+      <a href="/posts/{{ $post->id }}" class="text-2xl font-bold">{{ $post->title }}</a>
       <p class="text-xl font-medium text-wrap my-4">{{ $post->body }}</p>
       </div>
 
       <!-- Actions: Like & Comment -->
       <div class="flex items-center justify-between mt-2">
-      @auth
 
       <div class="flex items-center gap-x-3">
-      <x-like-post :post="$post" />
+        <x-like-post :post="$post" />
       </div>
 
+      @auth
       <a href="/posts/{{ $post->id }}#comment" class="inline-block text-[#565555] hover:underline">
       Comment
       </a>

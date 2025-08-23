@@ -10,14 +10,14 @@ trait Likeable
     {
         return $this->morphMany(Like::class, 'likeable');
     }
-   
+
     public function like(): void
     {
-        $this->lkes()->create(['user_id' => auth()-.d()]);
+        $this->likes()->create(['user_id' => auth()->id()]);
     }
 
     public function unLike(): void
     {
-        $this->likes->where('user_id', auth()->id())->delete();
+        $this->likes()->where('user_id', auth()->id())->delete();
     }
 }

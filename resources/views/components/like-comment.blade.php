@@ -1,11 +1,13 @@
-@props(['comment', 'post'])
+@props(['comment'])
 
-@php
-  $userLiked = $comment->likes->where('user_id', Auth::user()->id)->where('likeable_id', $comment->id)->first();
-@endphp
+@auth
+  @php
 
-@if (!$userLiked)
-  <form action="/posts/{{ $post->id }}/comment/{{ $comment->id }}/like" method="POST">
+    $userLiked = $comment->likes->where('user_id', Auth::id())->where('likeable_id', $comment->id)->first();
+  @endphp
+
+  @if (!$userLiked)
+    <form action="/comments/{{$comment->id}}/like" method="POST">
 
     @csrf
     <button type="submit"
@@ -15,9 +17,9 @@
       <span class="text-sm text-gray-400">Like</span>
     </span>
     </button>
-  </form>
-@else
-  <form action="/posts/{{ $post->id }}/comment/{{ $comment->id }}/like" method="POST">
+    </form>
+  @else
+    <form action="/comments/{{$comment->id}}/un-like" method="POST">
     @csrf
     @method('DELETE')
     <button type="submit"
@@ -27,8 +29,17 @@
       <span class="text-sm text-gray-400">Dislike</span>
     </span>
     </button>
-  </form>
-@endif
+    </form>
+  @endif
+@endauth
 @if ($comment->likes()->count())
-  <span class="text-sm text-gray-600 flex items-center justify-center">{{ $comment->likes()->count() }}</span>
+  <span class="text-sm text-gray-600 flex items-center justify-center">
+    {{ $comment->likes()->count() }}
+  </span>
+
+  {{-- Show "Like" text for guests (not logged in) --}}
+  @guest
+    <span class="text-sm text-blue-800 flex items-center justify-center">Likes</span>
+  @endguest
+
 @endif

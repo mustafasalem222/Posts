@@ -37,13 +37,13 @@
         </div>
       @endguest
           @auth
-        <form method="POST" action="/logout">
-        @csrf
-        <x-form-button-destroy>Log Out</x-form-button-destroy>
-        </form>
-      @endauth
+          <form method="POST" action="/logout">
+          @csrf
+          <x-form-button-destroy>Log Out</x-form-button-destroy>
+          </form>
         </div>
-      </div>
+        </div>
+      @endauth
 
 
     </nav>
@@ -51,8 +51,10 @@
     <header class="bg-white shadow-sm">
       <div class="mx-auto max-w-7xl px-4 flex items-center justify-between py-6 sm:px-6 lg:px-8">
         <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{ $heading }}</h1>
-        @if ($linkName ?? false)
-      <x-link-click href="/jobs/create">{{ $linkName }}</x-link-click>
+        @auth
+        @if ($linkhref ?? false)
+      <x-link-click :linkhref="$linkhref">Create</x-link-click>
+      @endauth
     @endif
       </div>
 
