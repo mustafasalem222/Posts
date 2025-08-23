@@ -15,7 +15,7 @@ class PostPolicy
         //
     }
 
-    public function edit(User $user, Post $post): bool
+    public function accses(User $user, Post $post): bool
     {
         return $post->user->is($user);
     }

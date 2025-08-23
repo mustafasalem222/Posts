@@ -42,16 +42,19 @@ Route::controller(PostController::class)->group(function () {
 
   Route::middleware('auth')->group(function () {
     Route::get('/posts/create', 'create');
-    Route::get('/posts/{post}/edit', 'edit');
-    Route::patch('/posts/{post}', 'update');
-    Route::delete('/posts/{post}', 'destroy');
+
+    Route::middleware('can:accses,post')->group(function () {
+      Route::get('/posts/{post}/edit', 'edit');
+      Route::patch('/posts/{post}', 'update');
+      Route::delete('/posts/{post}', 'destroy');
+    });
+
     Route::post('/posts', 'store');
     Route::post('/posts/{post}/like', 'like');
     Route::delete('/posts/{post}/un-like', 'unLike');
   });
 
   Route::get('/posts/{post}', 'show');
-
   Route::post('/posts/{post}/like', 'like');
   Route::post('/posts/{post}/un-like', 'unLike');
 });
