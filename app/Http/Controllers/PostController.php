@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use App\Http\Requests\StorePostRequest;
 
 
 class PostController extends Controller
@@ -26,17 +27,9 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-    public function store()
+    public function store(StorePostRequest $request)
     {
-        $attributes = request()->validate([
-            'body' => ['required', 'min:20', 'max:215'],
-            'title' => ['required', 'min:5']
-        ]);
-
-        Auth::user()->posts()->create([
-            'title' => $attributes['title'],
-            'body' => $attributes['body'],
-        ]);
+        Auth::user()->posts()->create($request->validated());
 
         return redirect('/posts');
     }
@@ -45,6 +38,7 @@ class PostController extends Controller
     {
         return view('posts.edit', compact('post'));
     }
+
     public function update(Post $post)
     {
         $attributes = request()->validate([
@@ -60,6 +54,7 @@ class PostController extends Controller
         return redirect("/posts/$post->id");
         ;
     }
+
     public function destroy(Post $post)
     {
         $post->delete();

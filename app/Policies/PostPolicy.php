@@ -17,6 +17,6 @@ class PostPolicy
 
     public function accses(User $user, Post $post): bool
     {
-        return $post->user->is($user);
+        return $post->user_id === $user->id;
     }
 }
