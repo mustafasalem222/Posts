@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   @vite(['resources/js/app.js'])
   <title>{{$title}}</title>
 </head>
@@ -31,19 +32,19 @@
             </div>
           </div>
           @guest
-        <div class="flex items-center justify-between">
-        <x-nav-link href="/login" :active="request()->is('login')">Login</x-nav-link>
-        <x-nav-link href="/register" :active="request()->is('register')">Register</x-nav-link>
-        </div>
-      @endguest
+            <div class="flex items-center justify-between">
+              <x-nav-link href="/login" :active="request()->is('login')">Login</x-nav-link>
+              <x-nav-link href="/register" :active="request()->is('register')">Register</x-nav-link>
+            </div>
+          @endguest
           @auth
-          <form method="POST" action="/logout">
-          @csrf
-          <x-form-button-destroy>Log Out</x-form-button-destroy>
-          </form>
-        </div>
-        </div>
-      @endauth
+                <form method="POST" action="/logout">
+                  @csrf
+                  <x-form-button-destroy>Log Out</x-form-button-destroy>
+                </form>
+              </div>
+            </div>
+          @endauth
 
 
     </nav>
@@ -53,9 +54,9 @@
         <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{ $heading }}</h1>
         @auth
         @if ($linkhref ?? false)
-      <x-link-click :linkhref="$linkhref">Create</x-link-click>
-      @endauth
-    @endif
+          <x-link-click :linkhref="$linkhref">Create</x-link-click>
+          @endauth
+        @endif
       </div>
 
 

@@ -53,7 +53,7 @@ class User extends Authenticatable
 
     public function employer()
     {
-        return $this->hasMany(Employer::class);
+        return $this->hasOne(Employer::class);
     }
     public function likes()
     {

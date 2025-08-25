@@ -4,33 +4,7 @@
   </x-slot:heading>
 
 
-  <!-- Post -->
-  <div class="bg-white py-6 px-4 flex-col rounded flex border-b-2 border-b-blue-800">
-    <!-- User Info -->
-    <div class="flex items-center justify-between">
-      <div class="flex items-center justify-between">
-        <div>
-          <p class="font-medium text-xl">
-            {{ $post->user->full_name }}
-          </p>
-          <p class="text-sm text-gray-500">{{ $post->created_at->format('g:i A') }}</p>
-        </div>
-      </div>
-      <x-accses-post :post="$post" />
-    </div>
-
-    <!-- Post Content -->
-    <div>
-      <p class="text-2xl font-bold">{{ $post->title }}</p>
-      <p class="text-xl font-medium text-wrap my-4">{{ $post->body }}</p>
-    </div>
-    <div class="flex justify-between items-center">
-      <div class="mt-2 flex gap-4 text-sm text-gray-500">
-        <x-like-post :post="$post" />
-      </div>
-      <x-accses-post :post="$post" />
-    </div>
-  </div>
+  <x-post :$post :show="1" />
 
   <!-- Comments Section -->
   <div class="bg-white py-6 px-4 flex-col rounded flex">
@@ -39,7 +13,7 @@
       <h3 class="text-center my-5 text-3xl font-bold">Comments</h3>
 
       <div class="flex flex-col justify-center gap-5">
-        @foreach ($post->comments()->whereNull('parent_id')->with('user', 'replies')->get() as $comment)
+        @foreach ($post->comments()->whereNull('parent_id')->with('user', 'replies', 'likes')->get() as $comment)
           <x-comment :comment="$comment" :post="$post" />
         @endforeach
       </div>
