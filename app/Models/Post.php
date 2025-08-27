@@ -38,7 +38,8 @@ class Post extends Model
             'likes',
             'comments' => function ($q) {
                 $q->whereNull('parent_id')
-                    ->with(['user', 'replies.user', 'replies.likes', 'likes']);
+                    ->with(['user', 'replies.user', 'replies.likes', 'likes'])
+                    ->withCount(['likes', 'replies']);
             }
         ]);
     }
@@ -50,7 +51,8 @@ class Post extends Model
             'likes',
             'comments' => function ($q) {
                 $q->whereNull('parent_id')
-                    ->with(['user', 'replies.user', 'replies.likes', 'likes']);
+                    ->with(['user', 'replies.user', 'replies.likes', 'likes'])
+                    ->withCount(['likes', 'replies']);
             }
         ]);
     }

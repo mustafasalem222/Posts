@@ -19,7 +19,10 @@
     <p class="text-gray-700">{{ $comment->body }}</p>
 
     <div class="mt-2 flex gap-4 text-sm text-gray-500">
-      <button class="hover:text-blue-500 cursor-pointer reply-btn">Reply</button>
+      @auth
+        <button class="hover:text-blue-500 cursor-pointer reply-btn">Reply</button>
+      @endauth
+      <x-like :model="$comment" />
     </div>
 
     <!-- Reply form -->
@@ -37,7 +40,7 @@
   </div>
 
   <!-- Nested Replies -->
-  @if ($comment->replies_count)
+  @if ($comment->replies()->count())
     <div class="space-y-10">
       @foreach ($comment->replies as $reply)
         <x-reply :comment="$reply" :post="$post" />

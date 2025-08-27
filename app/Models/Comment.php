@@ -23,8 +23,9 @@ class Comment extends Model
     public function replies()
     {
         // He Expected Forgin Id For comments_id
-
-        return $this->hasMany($this, 'parent_id')->with('user', 'replies');
+        return $this->hasMany($this, 'parent_id')
+            ->with('user', 'replies', 'likes')
+            ->withCount('likes');
 
     }
     public function parent()

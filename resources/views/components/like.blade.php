@@ -2,7 +2,6 @@
 
 @auth
   @php
-
     $userLiked = $model->likes->where('user_id', Auth::id())->where('likeable_id', $model->id)->first();
   @endphp
 
