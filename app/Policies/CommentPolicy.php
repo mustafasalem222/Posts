@@ -21,7 +21,7 @@ class CommentPolicy
      */
     public function view(User $user, Comment $comment): bool
     {
-        return $comment->user->is($user);
+        return $comment->user_id === $user->id;
     }
 
     /**

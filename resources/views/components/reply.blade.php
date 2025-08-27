@@ -8,11 +8,11 @@
       </div>
       <div class="flex items-center gap-x-1.5">
         @if ($post->user->is($comment->user))
-      <span class="text-gray-600  text-sm">Author</span>
-    @endif
+          <span class="text-gray-600  text-sm">Author</span>
+        @endif
         @can('view', $comment)
-      <span class="text-blue-900 font-black ">You</span>
-    @endcan
+          <span class="text-blue-900 font-black ">You</span>
+        @endcan
       </div>
     </div>
 
@@ -24,24 +24,24 @@
 
     <!-- Reply form -->
     @auth
-    <div class="reply-form mt-3 hidden">
-      <form method="POST" action="/posts/{{ $post->id }}/comment/{{ $comment->id }}/reply">
-      @csrf
-      <textarea name="reply" class="w-full p-2 resize-none border rounded" placeholder="Write a reply..."></textarea>
-      <button type="submit" class="mt-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
-        Post Reply
-      </button>
-      </form>
-    </div>
-  @endauth
+      <div class="reply-form mt-3 hidden">
+        <form method="POST" action="/posts/{{ $post->id }}/comment/{{ $comment->id }}/reply">
+          @csrf
+          <textarea name="reply" class="w-full p-2 resize-none border rounded" placeholder="Write a reply..."></textarea>
+          <button type="submit" class="mt-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
+            Post Reply
+          </button>
+        </form>
+      </div>
+    @endauth
   </div>
 
   <!-- Nested Replies -->
-  @if ($comment->replies->count())
+  @if ($comment->replies_count)
     <div class="space-y-10">
-    @foreach ($comment->replies as $reply)
-    <x-reply :comment="$reply" :post="$post" />
-    @endforeach
+      @foreach ($comment->replies as $reply)
+        <x-reply :comment="$reply" :post="$post" />
+      @endforeach
     </div>
   @endif
 </div>

@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests\StoreJobRequest;
+use App\Http\Requests\UpdateJobRequest;
 use App\Mail\JobPosted;
 use App\Models\Job;
 
@@ -15,7 +17,7 @@ class JobController extends Controller
     //public function index()
     public function index()
     {
-        $jobs = Job::with('employer.user')->latest()->simplePaginate(3);
+        $jobs = Job::with('employer')->latest()->simplePaginate(3);
         return view('jobs.index', [
             'jobs' => $jobs
 
@@ -33,16 +35,12 @@ class JobController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreJobRequest $request)
     {
-        request()->validate([
-            'title' => ['required', 'min:3'],
-            'salary' => ['required'],
-        ]);
+
 
         $job = Job::create([
-            'title' => request('title'),
-            'salary' => request('salary'),
+            $request->validated(),
             'employer_id' => 1
         ]);
 
@@ -71,17 +69,9 @@ class JobController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Job $job)
+    public function update(Job $job, UpdateJobRequest $request)
     {
-        request()->validate([
-            'title' => ['required', 'min:3'],
-            'salary' => ['required'],
-        ]);
-
-        $job->update([
-            'title' => request('title'),
-            'salary' => request('salary')
-        ]);
+        $job->update($request->validated());
         return redirect("/jobs/$job->id");
     }
 

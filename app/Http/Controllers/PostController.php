@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -11,13 +13,25 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::latest()->with('user', 'comments', 'likes')->simplePaginate(3);
+        $posts = Post::latest()
+            ->withAllRelations()
+            ->withCount([
+                'likes as likes_count',
+                'comments as comments_count'
+            ])
+            ->get();
+
         return view('posts.index', compact('posts'));
     }
 
-
     public function show(Post $post)
     {
+        $post->loadAllRelations()
+            ->loadCount([
+                'likes as likes_count',
+                'comments as comments_count'
+            ]);
+
         return view('posts.show', compact('post'));
     }
 
@@ -26,18 +40,9 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-    public function store()
+    public function store(StorePostRequest $request)
     {
-        $attributes = request()->validate([
-            'body' => ['required', 'min:20', 'max:215'],
-            'title' => ['required', 'min:5']
-        ]);
-
-        Auth::user()->posts()->create([
-            'title' => $attributes['title'],
-            'body' => $attributes['body'],
-        ]);
-
+        Auth::user()->posts()->create($request->validated());
         return redirect('/posts');
     }
 
@@ -45,17 +50,11 @@ class PostController extends Controller
     {
         return view('posts.edit', compact('post'));
     }
-    public function update(Post $post)
+    public function update(Post $post, UpdatePostRequest $request)
     {
-        $attributes = request()->validate([
-            'body' => ['required', 'min:20', 'max:215'],
-            'title' => ['required', 'min:5']
-        ]);
 
-        $post->update([
-            'title' => $attributes['title'],
-            'body' => $attributes['body'],
-        ]);
+
+        $post->update($request->validated());
 
         return redirect("/posts/$post->id");
         ;

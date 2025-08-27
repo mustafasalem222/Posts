@@ -38,8 +38,8 @@
         <a href="/posts/{{ $post->id }}#comment" class="block text-[#565555] ">
           <div class="flex items-center space-x-4">
             <i class="fa-regular fa-comments text-[#888] mr-1"></i>
-            @if ($post->comments()->count())
-              {{ $post->comments()->count() }}
+            @if ($post->comments_count)
+              {{ $post->comments_count }}
             @endif
           </div>
       @endif

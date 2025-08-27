@@ -30,4 +30,29 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function scopeWithAllRelations($query)
+    {
+        return $query->with([
+            'user',
+            'likes',
+            'comments' => function ($q) {
+                $q->whereNull('parent_id')
+                    ->with(['user', 'replies.user', 'replies.likes', 'likes']);
+            }
+        ]);
+    }
+
+    public function loadAllRelations()
+    {
+        return $this->load([
+            'user',
+            'likes',
+            'comments' => function ($q) {
+                $q->whereNull('parent_id')
+                    ->with(['user', 'replies.user', 'replies.likes', 'likes']);
+            }
+        ]);
+    }
+
 }

@@ -39,7 +39,7 @@
   @endauth
 
   <!-- Nested Replies -->
-  @if ($comment->replies->count())
+  @if ($comment->replies_count)
     <div class="space-y-10">
       @foreach ($comment->replies as $reply)
         <x-reply :comment="$reply" :post="$post" />
