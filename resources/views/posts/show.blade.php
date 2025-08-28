@@ -3,7 +3,6 @@
     Posts
   </x-slot:heading>
   <x-post :$post :show="1" />
-
   <!-- Comments Section -->
   <div class="bg-white py-6 px-4 flex-col rounded flex">
     @if ($post->comments->count())

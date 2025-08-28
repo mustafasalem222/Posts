@@ -7,7 +7,6 @@
 
   @if (!$userLiked)
     <form action="/{{ strtolower(class_basename($model)) . 's'  }}/{{$model->id}}/like" method="POST">
-
       @csrf
       <button type="submit"
         class="like-btn text-red-500 text-2xl cursor-pointer group transition-transform duration-200 focus:outline-none">
@@ -35,12 +34,10 @@
   <span class="text-sm text-gray-600 flex items-center justify-center">
     {{ $model->likes->count()}}
   </span>
-
   {{-- Show "Like" text for guests (not logged in) --}}
   @guest
     <span class="text-sm text-blue-800 flex items-center justify-center">Likes</span>
   @endguest
-
 @endif
 
 <script>

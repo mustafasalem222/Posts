@@ -19,18 +19,16 @@
     @if ($show)
       <p class="text-2xl font-bold">{{ $post->title }}</p>
     @else
-        <a href="/posts/{{ $post->id }}" class=" text-2xl font-bold">{{ $post->title }}</a>
-      @endif
-        <p class="text-xl font-medium text-wrap my-4">{{ $post->body }}</p>
+      <a href="/posts/{{ $post->id }}" class=" text-2xl font-bold">{{ $post->title }}</a>
+    @endif
+    <p class="text-xl font-medium text-wrap my-4">{{ $post->body }}</p>
   </div>
 
   <!-- Actions: Like & Comment -->
   <div class="flex items-center justify-between mt-2">
-
     <div class="flex items-center gap-x-3">
       <x-like :model="$post" />
     </div>
-
     @auth
       @if ($show)
       <x-accses-post :post="$post" :edit="1" /> @else <a href="/posts/{{ $post->id }}#comment"
@@ -42,8 +40,7 @@
           @endif
         </div>
       @endif
-        </a>
+      </a>
     @endauth
   </div>
-
 </div>
