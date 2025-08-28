@@ -19,9 +19,9 @@
     @if ($show)
       <p class="text-2xl font-bold">{{ $post->title }}</p>
     @else
-      <a href="/posts/{{ $post->id }}" class="text-2xl font-bold">{{ $post->title }}</a>
-    @endif
-    <p class="text-xl font-medium text-wrap my-4">{{ $post->body }}</p>
+        <a href="/posts/{{ $post->id }}" class=" text-2xl font-bold">{{ $post->title }}</a>
+      @endif
+        <p class="text-xl font-medium text-wrap my-4">{{ $post->body }}</p>
   </div>
 
   <!-- Actions: Like & Comment -->
@@ -33,17 +33,16 @@
 
     @auth
       @if ($show)
-        <x-accses-post :post="$post" :edit="1" />
-      @else
-        <a href="/posts/{{ $post->id }}#comment" class="block text-[#565555] ">
-          <div class="flex items-center space-x-4">
-            <i class="fa-regular fa-comments text-[#888] mr-1"></i>
-            @if ($post->comments_count)
-              {{ $post->comments_count }}
-            @endif
-          </div>
+      <x-accses-post :post="$post" :edit="1" /> @else <a href="/posts/{{ $post->id }}#comment"
+        class="block text-[#565555] ">
+        <div class="flex items-center space-x-4">
+          <i class="fa-regular fa-comments text-[#888] mr-1"></i>
+          @if ($post->comments_count)
+            {{ $post->comments_count}}
+          @endif
+        </div>
       @endif
-      </a>
+        </a>
     @endauth
   </div>
 

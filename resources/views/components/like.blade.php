@@ -31,9 +31,9 @@
     </form>
   @endif
 @endauth
-@if ($model->likes_count)
+@if ($model->likes->count())
   <span class="text-sm text-gray-600 flex items-center justify-center">
-    {{ $model->likes_count }}
+    {{ $model->likes->count()}}
   </span>
 
   {{-- Show "Like" text for guests (not logged in) --}}
